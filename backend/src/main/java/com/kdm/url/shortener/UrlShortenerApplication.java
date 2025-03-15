@@ -1,4 +1,4 @@
-package com.kdm.url_shortener;
+package com.kdm.url.shortener;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
