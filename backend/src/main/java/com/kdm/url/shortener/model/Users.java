@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "url")
-public class Url {
-
+@Table(name = "users")
+public class Users {
 }
