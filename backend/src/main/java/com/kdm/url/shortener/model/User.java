@@ -23,8 +23,7 @@ public class User {
     @Column(name = "user_email")
     private String email;
 
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Url> urls;
 
     @Column(name = "user_password")
