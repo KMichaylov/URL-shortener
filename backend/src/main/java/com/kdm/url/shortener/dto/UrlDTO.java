@@ -1,13 +1,13 @@
 package com.kdm.url.shortener.dto;
 
 import jakarta.persistence.Column;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
 
-@Getter
-@Setter
+@Data
 public class UrlDTO {
     private String shortUrl;
     private String originalUrl;
