@@ -14,7 +14,6 @@ import java.sql.Timestamp;
 public class Url {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "short_url")
     private String shortUrl;
 
