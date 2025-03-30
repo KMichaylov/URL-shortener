@@ -17,15 +17,16 @@ import java.util.Optional;
 
 //TODO: Add all endpoints here tomorrow(on Saturday)
 // TODO: Later add some comments
+// TODO: Add validation
 @Service
-public class UsersServices {
+public class UsersService {
 
     private final UsersRepository usersRepository;
 
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UsersServices(UsersRepository usersRepository) {
+    public UsersService(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
         this.passwordEncoder = new SecurityConfig().passwordEncoder();
 
@@ -60,9 +61,10 @@ public class UsersServices {
         }
     }
 
-    public void deleteUserById(long id) {
+    public boolean deleteUserById(long id) {
         if (usersRepository.findById(id).isPresent()) {
             usersRepository.deleteById(id);
+            return true;
         } else {
             throw new UserDoesNotExistException("This user does not exist");
         }
