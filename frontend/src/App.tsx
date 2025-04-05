@@ -1,4 +1,5 @@
 import './App.css'
+import CustomForm from "./components/CustomForm.tsx";
 
 function App() {
 
@@ -7,13 +8,12 @@ function App() {
             <div className="wrapper">
                 <div className="wrapper-registration">
                     <CustomForm
-                        fields={loginConfig}
-                        onSubmit={handleFormSubmit}
-                        buttonConfig={buttonConfig}
-                        initialValues={{email: '', password: ''}}
+                        isLogin={true}
                     />
-                    <span>Don't have an account? <Link to="/register">Register here</Link></span>
                 </div>
+                <span>Forgot the password?</span>
+                <span>Create an account</span>
+
             </div>
         </>
     )
