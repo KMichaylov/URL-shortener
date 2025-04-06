@@ -12,9 +12,9 @@ function App() {
                         isLogin={true}
                     />
                 </div>
-                <Flex>
-                    <span>Forgot the password?</span>
-                    <span>Create an account</span>
+                <Flex justify="space-between" >
+                    <span className="account-options">Forgot the password?</span>
+                    <span className="account-options">Create an account</span>
                 </Flex>
             </div>
         </MantineProvider>

@@ -1,56 +1,54 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
 body,
 html {
-  height: 100%;
-  background-color: #f4f7fa;
+    height: 100%;
+    background-color: #f4f7fa;
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .wrapper {
-  background-color: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  width: 100%;
-  max-width: 420px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .wrapper-registration {
-  width: 100%;
-  margin-bottom: 16px;
+    width: 100%;
+    margin-bottom: 16px;
 }
 
-span {
-  display: block;
-  text-align: center;
-  color: #1a73e8;
-  font-size: 14px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: 0.2s ease;
+.account-options {
+    display: block;
+    text-align: center;
+    color: #1a73e8;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.2s ease;
 }
 
-span:hover {
-  text-decoration: underline;
+.account-options:hover {
+    text-decoration: underline;
 }
 
-/* Responsive padding */
 @media (max-width: 500px) {
-  .wrapper {
-    padding: 20px;
-  }
+    .wrapper {
+        padding: 30px;
+    }
 }
