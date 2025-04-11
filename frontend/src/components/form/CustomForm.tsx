@@ -80,7 +80,7 @@ const CustomForm: React.FC<CustomFormProps> = ({isLogin}) => {
                         onChange={(e) => handleChange('email', e.currentTarget.value)}
                         error={errors.email}
                         required
-                        style={{width: '100%', paddingBottom:"1rem"}}
+                        style={{width: '100%', paddingBottom: "1rem"}}
 
                     />
 
@@ -95,7 +95,7 @@ const CustomForm: React.FC<CustomFormProps> = ({isLogin}) => {
                             onChange={(e) => handleChange('username', e.currentTarget.value)}
                             error={errors.username}
                             required
-                            style={{width: '100%', paddingBottom:"1rem"}}
+                            style={{width: '100%', paddingBottom: "1rem"}}
 
                         />
                     )}
@@ -109,7 +109,7 @@ const CustomForm: React.FC<CustomFormProps> = ({isLogin}) => {
                         onChange={(e) => handleChange('password', e.currentTarget.value)}
                         error={errors.password}
                         required
-                        style={{width: '100%', paddingBottom:"1rem"}}
+                        style={{width: '100%', paddingBottom: "1rem"}}
 
                     />
 
@@ -119,7 +119,7 @@ const CustomForm: React.FC<CustomFormProps> = ({isLogin}) => {
                         type="submit"
                         style={{width: '100%'}}
                     >
-                        {isLogin ? 'Sign Up' : 'Log In'}
+                        {isLogin ? 'Log In' : 'Sign Up'}
                     </Button>
                 </Stack>
             </form>

@@ -1,5 +1,5 @@
 import './App.css'
-import CustomForm from "./components/CustomForm.tsx";
+import CustomForm from "./components/form/CustomForm.tsx";
 import {Flex, MantineProvider} from "@mantine/core";
 
 function App() {
