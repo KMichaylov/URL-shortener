@@ -1,9 +1,11 @@
 import {createRoot} from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import {BrowserRouter, createBrowserRouter, RouterProvider} from "react-router";
+import {createBrowserRouter, RouterProvider} from "react-router";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage.tsx";
 import MainPage from "./pages/MainPage/MainPage.tsx";
+import ShortenedUrlPage from "./pages/ShortenedUrlPage/ShortenedUrlPage.tsx";
+import AnalyticsPage from "./pages/AnalyticsPage/AnalyticsPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -14,10 +16,14 @@ const router = createBrowserRouter([
     },
     {
         path: "/main", element: <MainPage/>
-    }
+    },
+    {
+        path: "/shorted-url", element: <ShortenedUrlPage/>
+    },
+    {
+        path: "shorted-url/clicks", element: <AnalyticsPage/>
+    },
 ])
 createRoot(document.getElementById('root')!).render(
-    <BrowserRouter>
-        <RouterProvider router={router}/>
-    </BrowserRouter>,
+    <RouterProvider router={router}/>
 )
