@@ -8,7 +8,7 @@ type CustomButtonProps = {
 
 const CustomButton: React.FC<CustomButtonProps> = ({placeholder, onClick}) => {
     return (<MantineProvider>
-        <Button variant="light" color="cyan" size="md" radius="md" onClick={onClick}>{placeholder}</Button>;
+        <Button variant="light" color="cyan" size="md" radius="md" onClick={onClick}>{placeholder}</Button>
     </MantineProvider>)
 
 }
