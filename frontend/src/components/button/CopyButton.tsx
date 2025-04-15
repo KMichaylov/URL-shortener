@@ -3,11 +3,12 @@ import {Button, Tooltip} from '@mantine/core';
 import {useClipboard} from '@mantine/hooks';
 
 type CopyButtonProps = {
-    shortenedValue: string
+    shortenedValue: string,
+    className?: string
 }
 
 
-const ButtonCopy: React.FC<CopyButtonProps> = ({shortenedValue}) => {
+const ButtonCopy: React.FC<CopyButtonProps> = ({shortenedValue, className}) => {
     const clipboard = useClipboard();
     return (
         <Tooltip
@@ -33,8 +34,9 @@ const ButtonCopy: React.FC<CopyButtonProps> = ({shortenedValue}) => {
                 h={48}
                 styles={{section: {marginLeft: 22}}}
                 onClick={() => clipboard.copy(shortenedValue)}
+                className={className}
             >
-                Copy link to clipboard
+                Copy link
             </Button>
         </Tooltip>
     );
