@@ -40,6 +40,7 @@ function MainPage() {
                             name={"url-input"}
                             value={value}
                             onChange={handleInputChange}
+                            className={"input-field"}
                         />
                     </div>
                     <CustomButton

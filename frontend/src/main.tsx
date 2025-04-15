@@ -1,11 +1,13 @@
 import {createRoot} from 'react-dom/client'
 import './index.css'
+import '@mantine/core/styles.css';
 import App from './App.tsx'
 import {createBrowserRouter, RouterProvider} from "react-router";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage.tsx";
 import MainPage from "./pages/MainPage/MainPage.tsx";
 import ShortenedUrlPage from "./pages/ShortenedUrlPage/ShortenedUrlPage.tsx";
 import AnalyticsPage from "./pages/AnalyticsPage/AnalyticsPage.tsx";
+import {MantineProvider} from "@mantine/core";
 
 const router = createBrowserRouter([
     {
@@ -25,5 +27,7 @@ const router = createBrowserRouter([
     },
 ])
 createRoot(document.getElementById('root')!).render(
-    <RouterProvider router={router}/>
+    <MantineProvider>
+        <RouterProvider router={router}/>
+    </MantineProvider>
 )
