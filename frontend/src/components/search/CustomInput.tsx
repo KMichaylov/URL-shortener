@@ -8,12 +8,22 @@ type CustomInputProps = {
     description?: string,
     placeholder?: string,
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-    value: string
+    value: string,
+    className?: string
 
 };
 
 
-const CustomInput: React.FC<CustomInputProps> = ({name, label, error, description, placeholder, onChange, value}) => {
+const CustomInput: React.FC<CustomInputProps> = ({
+                                                     name,
+                                                     label,
+                                                     error,
+                                                     description,
+                                                     placeholder,
+                                                     onChange,
+                                                     value,
+                                                     className
+                                                 }) => {
     return (<MantineProvider>
         <Input.Wrapper
             size="md"
@@ -21,6 +31,7 @@ const CustomInput: React.FC<CustomInputProps> = ({name, label, error, descriptio
             withAsterisk
             description={description}
             error={error}
+            className={className}
         >
             <Input size="md" name={name} onChange={onChange} placeholder={placeholder}
                    value={value}/>
