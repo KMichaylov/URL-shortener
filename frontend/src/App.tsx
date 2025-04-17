@@ -12,7 +12,7 @@ function App() {
                         isLogin={true}
                     />
                 </div>
-                <Flex justify="space-between" >
+                <Flex justify="space-between" gap="xl">
                     <span className="account-options">Forgot the password?</span>
                     <span className="account-options">Create an account</span>
                 </Flex>

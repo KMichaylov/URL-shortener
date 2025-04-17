@@ -1,4 +1,3 @@
-import {MantineProvider} from "@mantine/core";
 import CustomForm from "../../components/form/CustomForm.tsx";
 
 function RegistrationPage() {

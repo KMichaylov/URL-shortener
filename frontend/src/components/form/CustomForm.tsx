@@ -3,8 +3,7 @@ import {
     TextInput,
     Button,
     Center,
-    Paper,
-    Text, MantineProvider
+    Text
 } from '@mantine/core';
 import styles from "./CustomForm.module.css"
 
@@ -50,70 +49,64 @@ const CustomForm: React.FC<CustomFormProps> = ({isLogin}) => {
     };
 
     return (
-        <Paper
-            shadow="lg"
-            radius="xl"
-            p="xl"
-            style={{width: '100%', maxWidth: 900}}
-        >
-            <form onSubmit={handleSubmit}>
 
-                <Center>
-                    <Text size="xl" style={{textAlign: 'center'}}>
-                        Welcome!
-                    </Text>
-                </Center>
+        <form onSubmit={handleSubmit}>
 
+            <Center>
+                <Text size="xl" style={{textAlign: 'center'}}>
+                    Welcome!
+                </Text>
+            </Center>
+
+            <TextInput
+                id="email"
+                radius="md"
+                size="md"
+                placeholder="Enter email"
+                label="Email"
+                value={formValues.email}
+                onChange={(e) => handleChange('email', e.currentTarget.value)}
+                error={errors.email}
+                required
+                className={styles["input-field"]}
+            />
+
+            {!isLogin && (
                 <TextInput
-                    id="email"
+                    id="username"
                     radius="md"
                     size="md"
-                    placeholder="Enter email"
-                    label="Email"
-                    value={formValues.email}
-                    onChange={(e) => handleChange('email', e.currentTarget.value)}
-                    error={errors.email}
+                    label="Username"
+                    placeholder="Enter username"
+                    value={formValues.username}
+                    onChange={(e) => handleChange('username', e.currentTarget.value)}
+                    error={errors.username}
                     required
                     className={styles["input-field"]}
                 />
+            )}
+            <TextInput
+                size="md"
+                radius="md"
+                label="Password"
+                withAsterisk
+                placeholder="Enter password"
+                value={formValues.password}
+                onChange={(e) => handleChange('password', e.currentTarget.value)}
+                error={errors.password}
+                required
+                className={styles["input-field"]}
+            />
 
-                {!isLogin && (
-                    <TextInput
-                        id="username"
-                        radius="md"
-                        size="md"
-                        label="Username"
-                        placeholder="Enter username"
-                        value={formValues.username}
-                        onChange={(e) => handleChange('username', e.currentTarget.value)}
-                        error={errors.username}
-                        required
-                        className={styles["input-field"]}
-                    />
-                )}
-                <TextInput
-                    size="md"
-                    radius="md"
-                    label="Password"
-                    withAsterisk
-                    placeholder="Enter password"
-                    value={formValues.password}
-                    onChange={(e) => handleChange('password', e.currentTarget.value)}
-                    error={errors.password}
-                    required
-                    className={styles["input-field"]}
-                />
-
-                <Button
-                    radius="md"
-                    size="md"
-                    type="submit"
-                    style={{width: '100%'}}
-                >
-                    {isLogin ? 'Log In' : 'Sign Up'}
-                </Button>
-            </form>
-        </Paper>
+            <Button
+                radius="md"
+                size="md"
+                type="submit"
+                style={{width: '100%'}}
+            >
+                {isLogin ? 'Log In' : 'Sign Up'}
+            </Button>
+        </form>
     );
 };
 
