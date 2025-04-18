@@ -1,9 +1,9 @@
-import {Button, MantineProvider, MantineStyleProp} from "@mantine/core";
+import {Button, MantineStyleProp} from "@mantine/core";
 import React from "react";
 
 type CustomButtonProps = {
     placeholder: string,
-    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
     className?: string;
     radius?: string
     size?: string
