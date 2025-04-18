@@ -1,30 +1,54 @@
 import {useState, FormEvent} from 'react';
 import {
     TextInput,
-    Button,
     Center,
-    Text
+    Text,
 } from '@mantine/core';
-import styles from "./CustomForm.module.css"
+import styles from './CustomForm.module.css';
+import CustomButton from '../button/CustomButton.tsx';
+import {useNavigate} from 'react-router';
+import {validateEmail, validatePassword, validateUsername} from '../../services/validation.ts';
 
 type CustomFormProps = {
     isLogin: boolean;
 };
 
+type FormValues = {
+    email: string;
+    password: string;
+    username: string;
+};
+
 type Errors = {
-    email?: string;
-    password?: string;
-    username?: string;
+    [key: string]: string | undefined;
+};
+
+const validateForm = (values: FormValues, isLogin: boolean): Errors => {
+    const newErrors: Errors = {};
+
+    const emailError = validateEmail(values.email);
+    if (emailError) newErrors.email = emailError;
+
+    const passwordError = validatePassword(values.password);
+    if (passwordError) newErrors.password = passwordError;
+
+    if (!isLogin) {
+        const usernameError = validateUsername(values.username);
+        if (usernameError) newErrors.username = usernameError;
+    }
+
+    return newErrors;
 };
 
 const CustomForm: React.FC<CustomFormProps> = ({isLogin}) => {
-    const [formValues, setFormValues] = useState({
+    const [formValues, setFormValues] = useState<FormValues>({
         email: '',
         password: '',
         username: '',
     });
 
     const [errors, setErrors] = useState<Errors>({});
+    const navigate = useNavigate();
 
     const handleChange = (name: string, value: string) => {
         setFormValues((prevValues) => ({
@@ -35,23 +59,15 @@ const CustomForm: React.FC<CustomFormProps> = ({isLogin}) => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        const newErrors: Errors = {};
-
-        if (!formValues.email) newErrors.email = 'Email is required';
-        if (!formValues.password) newErrors.password = 'Password is required';
-        if (!isLogin && !formValues.username) newErrors.username = 'Username is required';
-
-        setErrors(newErrors);
-
-        if (Object.keys(newErrors).length === 0) {
-            console.log(formValues);
+        const validationErrors = validateForm(formValues, isLogin);
+        setErrors(validationErrors);
+        if (Object.keys(validationErrors).length === 0) {
+            navigate('/main');
         }
     };
 
     return (
-
         <form onSubmit={handleSubmit}>
-
             <Center>
                 <Text size="xl" style={{textAlign: 'center'}}>
                     Welcome!
@@ -68,7 +84,7 @@ const CustomForm: React.FC<CustomFormProps> = ({isLogin}) => {
                 onChange={(e) => handleChange('email', e.currentTarget.value)}
                 error={errors.email}
                 required
-                className={styles["input-field"]}
+                className={styles['input-field']}
             />
 
             {!isLogin && (
@@ -82,9 +98,10 @@ const CustomForm: React.FC<CustomFormProps> = ({isLogin}) => {
                     onChange={(e) => handleChange('username', e.currentTarget.value)}
                     error={errors.username}
                     required
-                    className={styles["input-field"]}
+                    className={styles['input-field']}
                 />
             )}
+
             <TextInput
                 size="md"
                 radius="md"
@@ -95,17 +112,16 @@ const CustomForm: React.FC<CustomFormProps> = ({isLogin}) => {
                 onChange={(e) => handleChange('password', e.currentTarget.value)}
                 error={errors.password}
                 required
-                className={styles["input-field"]}
+                className={styles['input-field']}
             />
 
-            <Button
+            <CustomButton
                 radius="md"
                 size="md"
                 type="submit"
                 style={{width: '100%'}}
-            >
-                {isLogin ? 'Log In' : 'Sign Up'}
-            </Button>
+                placeholder={isLogin ? 'Log In' : 'Sign Up'}
+            />
         </form>
     );
 };
