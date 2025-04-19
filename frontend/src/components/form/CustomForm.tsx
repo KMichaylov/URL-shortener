@@ -2,25 +2,18 @@ import {useState, FormEvent} from 'react';
 import {
     TextInput,
     Center,
-    Text,
+    Text, PasswordInput,
 } from '@mantine/core';
 import styles from './CustomForm.module.css';
 import CustomButton from '../button/CustomButton.tsx';
 import {useNavigate} from 'react-router';
 import {validateEmail, validatePassword, validateUsername} from '../../services/validation.ts';
+import {createHandleChange} from "../../utils/formHelper.ts";
+import {Errors} from "../../types/Errors.ts";
+import {FormValues} from "../../types/FormValues.ts";
 
 type CustomFormProps = {
     isLogin: boolean;
-};
-
-type FormValues = {
-    email: string;
-    password: string;
-    username: string;
-};
-
-type Errors = {
-    [key: string]: string | undefined;
 };
 
 const validateForm = (values: FormValues, isLogin: boolean): Errors => {
@@ -47,15 +40,9 @@ const CustomForm: React.FC<CustomFormProps> = ({isLogin}) => {
         username: '',
     });
 
+    const handleChange = createHandleChange<FormValues>(setFormValues)
     const [errors, setErrors] = useState<Errors>({});
     const navigate = useNavigate();
-
-    const handleChange = (name: string, value: string) => {
-        setFormValues((prevValues) => ({
-            ...prevValues,
-            [name]: value,
-        }));
-    };
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -102,7 +89,7 @@ const CustomForm: React.FC<CustomFormProps> = ({isLogin}) => {
                 />
             )}
 
-            <TextInput
+            <PasswordInput
                 size="md"
                 radius="md"
                 label="Password"

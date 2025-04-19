@@ -17,7 +17,10 @@ function ForgottenPasswordPage() {
                 <Title>Forgot Password</Title>
                 <CustomInput placeholder={"Enter email address"} value={email}
                              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.currentTarget.value)}/>
-                <CustomButton placeholder={'Reset Password'}/>
+                <CustomButton  radius="md"
+                               size="md"
+                               type="submit"
+                               style={{width: '100%'}} placeholder={'Reset Password'}/>
             </Container>
         </div>
     )
