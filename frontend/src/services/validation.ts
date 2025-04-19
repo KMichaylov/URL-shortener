@@ -27,3 +27,10 @@ export const validateUsername = (value: string) => {
     }
     return null;
 };
+
+export const validatePasswordConfirmation = (password: string, confirmedPassword: string) => {
+    if (isNotEmpty()(password) && isNotEmpty()(confirmedPassword)) {
+        return 'This field cannot be empty';
+    }
+    return password === confirmedPassword ? null : 'The confirmation password does not match the previously typed one.';
+};
