@@ -35,7 +35,7 @@ const router = createBrowserRouter([
         path: "/reset-password", element: <ResetPasswordPage/>
     },
     {
-        path: "/error", element: <ErrorPage/>
+        path: "*", element: <ErrorPage />
     }
 ])
 createRoot(document.getElementById('root')!).render(

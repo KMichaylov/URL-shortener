@@ -7,8 +7,8 @@ function ErrorPage() {
     const location = useLocation();
 
     const {title, message} = location.state || {
-        title: "Unknown error",
-        message: "Something went wrong. Please try again."
+        title: "Page not found",
+        message: "Something went wrong, couldn't find this page. Please try again."
     };
 
     return (
