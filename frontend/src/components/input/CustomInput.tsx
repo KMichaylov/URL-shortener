@@ -7,7 +7,7 @@ type CustomInputProps = {
     error?: string,
     description?: string,
     placeholder?: string,
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
     value: string,
     className?: string
 
