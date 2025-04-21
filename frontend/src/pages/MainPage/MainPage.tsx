@@ -8,11 +8,11 @@ import {useState} from "react";
 import {useNavigate} from "react-router";
 
 function MainPage() {
-    const [value, setValue] = useState("");
+    const [url, setUrl] = useState("");
     const navigate = useNavigate();
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value);
+        setUrl(event.target.value);
     };
 
     // TODO: Move this common behaviour into separate file
@@ -27,14 +27,14 @@ function MainPage() {
 
     const shortenUrl = async () => {
         try {
-            await api.post("/short-url", {originalUrl: value}, {
+            await api.post("/short-url", {originalUrl: url}, {
                 headers: {
                     "Content-Type": "application/json"
                 }
             });
             navigate("/shorted-url", {
                 state: {
-                    originalUrl: value
+                    originalUrl: url
                 }
             });
         } catch (error) {
@@ -48,7 +48,7 @@ function MainPage() {
 
     const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (value.trim()) {
+        if (url.trim()) {
             shortenUrl();
         } else {
             goToErrorPage(
@@ -73,7 +73,7 @@ function MainPage() {
                             <CustomInput
                                 placeholder={"Enter your link here"}
                                 name={"url-input"}
-                                value={value}
+                                value={url}
                                 onChange={handleInputChange}
                                 className={"input-field"}
                             />

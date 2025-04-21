@@ -11,7 +11,7 @@ import ErrorPage from "../ErrorPage/ErrorPage.tsx";
 
 function ShortenedUrlPage() {
 
-    const [value, setValue] = useState("")
+    const [shortenUrl, setShortenUrl] = useState("")
     const [hasError, setHasError] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
@@ -20,13 +20,13 @@ function ShortenedUrlPage() {
 
     useEffect(() => {
         api.get("/clicks")
-            .then((res) => setValue(res.data))
+            .then((res) => setShortenUrl(res.data))
             .catch(() => setHasError(true));
     }, []);
 
 
     const handleButtonCountClick = () => {
-        navigate("/shorted-url/clicks")
+        navigate("/shorted-url/clicks", {state: {shortUrl: shortenUrl}})
     }
 
     const handleBackButtonClick = () => {
@@ -42,8 +42,8 @@ function ShortenedUrlPage() {
             </div>
             <div className={styles["wrapper-urlbox"]}>
                 <div className={styles["input-button-row"]}>
-                    <CustomInput placeholder={"Enter URL"} name={"url-input"} value={value}/>
-                    <ButtonCopy shortenedValue={value}/>
+                    <CustomInput placeholder={"Enter URL"} name={"url-input"} value={shortenUrl}/>
+                    <ButtonCopy shortenedValue={shortenUrl}/>
                 </div>
                 <div className={styles["url-info"]}>
                     <Text className={styles["original-text"]}>Original URL: {originalUrl}</Text>
