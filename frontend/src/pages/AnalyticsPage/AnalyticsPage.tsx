@@ -1,26 +1,35 @@
-import {Container, MantineProvider, Text, Title} from "@mantine/core";
+import {Container, Text, Title} from "@mantine/core";
 import CustomButton from "../../components/button/CustomButton.tsx";
 import CustomFooter from "../../components/footer/CustomFooter.tsx";
 import styles from "./AnalyticsPage.module.css"
-import {useState} from "react";
-import {Location, useLocation, useNavigate} from "react-router";
+import {useEffect, useState} from "react";
+import {useLocation, useNavigate} from "react-router";
+import api from "../../api/apiConfiguration.ts";
+import ErrorPage from "../ErrorPage/ErrorPage.tsx";
 
 function AnalyticsPage() {
-    const [value, setValue] = useState("")
-    const navigate: Location = useNavigate();
-    const location: Location = useLocation();
+    const [numberOfClick, setNumberOfClicks] = useState<number>(0)
+    const [hasError, setHasError] = useState(false);
+    const navigate = useNavigate();
+    const locator = useLocation()
+    const shortUrl = locator.state?.shortUrl || "Unknown URL";
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value);
-    };
 
-    const handleButtonClick = () => {
-        if (!value) {
-            // TODO: Add a message here
-            return;
-        }
+    useEffect(() => {
+        api.get("/clicks")
+            .then((res) => setNumberOfClicks(res.data))
+            .catch(() => setHasError(true));
+    }, [])
 
+    const handleBackButtonClick = () => {
+        navigate(-1)
     }
+
+    const handleShortenButtonClick = () => {
+        navigate("/main")
+    }
+
+    if (hasError) return <ErrorPage/>
 
     return (
         <div className={styles["wrapper-main"]}>
@@ -28,12 +37,12 @@ function AnalyticsPage() {
             <Text>The number of clicks from the shortened URL that redirected the user to the destination
                 page.</Text>
             <Container className={styles["wrapper-info"]}>
-                <Text className={styles["square-box-url"]}>shortUrl</Text>
-                <Text className={styles["square-box-number"]}>0</Text>
+                <Text className={styles["square-box-url"]}>{shortUrl}</Text>
+                <Text className={styles["square-box-number"]}>{numberOfClick}</Text>
                 <CustomButton className={styles["custom-button"]}
-                              placeholder={"Go Back"} onClick={handleButtonClick}/>
+                              placeholder={"Go Back"} onClick={handleBackButtonClick}/>
                 <CustomButton className={styles["custom-button"]}
-                              placeholder={"Shorten another URL"} onClick={handleButtonClick}/>
+                              placeholder={"Shorten another URL"} onClick={handleShortenButtonClick}/>
             </Container>
             <CustomFooter/>
         </div>
