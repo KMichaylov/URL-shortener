@@ -32,7 +32,11 @@ function MainPage() {
                     "Content-Type": "application/json"
                 }
             });
-            navigate("/shorted-url");
+            navigate("/shorted-url", {
+                state: {
+                    originalUrl: value
+                }
+            });
         } catch (error) {
             console.log(error)
             goToErrorPage(

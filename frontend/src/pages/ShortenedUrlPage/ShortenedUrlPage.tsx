@@ -2,7 +2,7 @@ import {Text, Title} from "@mantine/core";
 import CustomInput from "../../components/input/CustomInput.tsx";
 import CustomButton from "../../components/button/CustomButton.tsx";
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import ButtonCopy from "../../components/button/CopyButton.tsx";
 import CustomFooter from "../../components/footer/CustomFooter.tsx";
 import styles from "./ShortenedUrlPage.module.css"
@@ -12,9 +12,11 @@ import ErrorPage from "../ErrorPage/ErrorPage.tsx";
 function ShortenedUrlPage() {
 
     const [value, setValue] = useState("")
-    const navigate = useNavigate();
-
     const [hasError, setHasError] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const originalUrl = location.state?.originalUrl || "Unknown URL";
 
     useEffect(() => {
         api.get("/clicks")
@@ -44,7 +46,7 @@ function ShortenedUrlPage() {
                     <ButtonCopy shortenedValue={value}/>
                 </div>
                 <div className={styles["url-info"]}>
-                    <Text className={styles["original-text"]}>Original URL: ...</Text>
+                    <Text className={styles["original-text"]}>Original URL: {originalUrl}</Text>
                     <CustomButton placeholder={"Total number of clicks"} onClick={handleButtonCountClick}/>
                     <CustomButton placeholder={"Go back"} onClick={handleBackButtonClick}/>
                     <CustomFooter/>
