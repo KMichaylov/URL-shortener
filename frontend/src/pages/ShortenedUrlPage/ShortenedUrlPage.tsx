@@ -3,7 +3,7 @@ import CustomInput from "../../components/input/CustomInput.tsx";
 import CustomButton from "../../components/button/CustomButton.tsx";
 import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router";
-import ButtonCopy from "../../components/button/CopyButton.tsx";
+import CopyButton from "../../components/button/CopyButton.tsx";
 import CustomFooter from "../../components/footer/CustomFooter.tsx";
 import styles from "./ShortenedUrlPage.module.css"
 import api from "../../api/apiConfiguration.ts";
@@ -43,7 +43,7 @@ function ShortenedUrlPage() {
             <div className={styles["wrapper-urlbox"]}>
                 <div className={styles["input-button-row"]}>
                     <CustomInput placeholder={"Enter URL"} name={"url-input"} value={shortenUrl}/>
-                    <ButtonCopy shortenedValue={shortenUrl}/>
+                    <CopyButton shortenedValue={shortenUrl}/>
                 </div>
                 <div className={styles["url-info"]}>
                     <Text className={styles["original-text"]}>Original URL: {originalUrl}</Text>

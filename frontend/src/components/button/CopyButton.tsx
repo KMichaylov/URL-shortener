@@ -1,6 +1,7 @@
 import {IconCheck, IconCopy} from '@tabler/icons-react';
 import {Button, Tooltip} from '@mantine/core';
 import {useClipboard} from '@mantine/hooks';
+import React from 'react';
 
 type CopyButtonProps = {
     shortenedValue: string,
