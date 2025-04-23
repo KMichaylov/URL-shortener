@@ -8,7 +8,7 @@ type CopyButtonProps = {
 }
 
 
-const ButtonCopy: React.FC<CopyButtonProps> = ({shortenedValue, className}) => {
+const CopyButton: React.FC<CopyButtonProps> = ({shortenedValue, className}) => {
     const clipboard = useClipboard();
     return (
         <Tooltip
@@ -42,4 +42,4 @@ const ButtonCopy: React.FC<CopyButtonProps> = ({shortenedValue, className}) => {
     );
 }
 
-export default ButtonCopy
+export default CopyButton
