@@ -19,7 +19,7 @@ import java.util.Optional;
 public class UrlService {
 
     public static final int SHORT_CODE_LENGTH = 10;
-    private static SecureRandom random = new SecureRandom();
+    private static final SecureRandom random = new SecureRandom();
     private final UrlRepository urlRepository;
     private final UsersRepository usersRepository;
 
@@ -73,12 +73,12 @@ public class UrlService {
     }
 
     public int displayClickForUrl(String shortUrl) {
-        Optional<Url> urlOptional = urlRepository.findByShortendUrl(shortUrl);
+        Optional<Url> urlOptional = urlRepository.findByShortUrl(shortUrl);
         return urlOptional.map(Url::getNumberOfClicks).orElse(0);
     }
 
     public void increaseClicksForUrl(String shortUrl) {
-        Optional<Url> urlOptional = urlRepository.findByShortendUrl(shortUrl);
+        Optional<Url> urlOptional = urlRepository.findByShortUrl(shortUrl);
         urlOptional.ifPresent(u -> {
             u.setNumberOfClicks(u.getNumberOfClicks() + 1);
             urlRepository.save(u);
@@ -87,7 +87,7 @@ public class UrlService {
 
     public String getOriginalUrl(String shortUrl) {
 
-        Optional<Url> url = urlRepository.findByShortendUrl(shortUrl);
+        Optional<Url> url = urlRepository.findByShortUrl(shortUrl);
 
         if (url.isPresent())
             return url.get().getOriginalUrl();

@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface UrlRepository extends JpaRepository<Url, Long> {
 
     @SQL("SELECT * FROM url WHERE shortURL = short_url")
-    Optional<Url> findByShortendUrl(String shortUrl);
+    Optional<Url> findByShortUrl(String shortUrl);
 }
