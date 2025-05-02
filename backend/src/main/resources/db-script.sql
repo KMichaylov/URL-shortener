@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS Users (
-user_id INT NOT NULL UNIQUE,
+user_id SERIAL,
 user_name VARCHAR(255),
 user_email VARCHAR(255) UNIQUE NOT NULL,
 user_password VARCHAR NOT NULL,
@@ -15,5 +15,5 @@ expiration TIMESTAMP,
 number_of_clicks INT,
 qr_code BYTEA,
 PRIMARY KEY (short_url),
-FOREIGN KEY (user_id) REFERENCES USERS(user_ID)
+FOREIGN KEY (user_id) REFERENCES Users(user_ID)
     );
