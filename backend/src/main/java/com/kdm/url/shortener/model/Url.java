@@ -33,8 +33,4 @@ public class Url {
     @Column(name = "number_of_clicks")
     private int numberOfClicks;
 
-    @Column(name = "qr_code")
-    private String qrCode;
-
-
 }

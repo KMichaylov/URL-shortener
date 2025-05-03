@@ -11,7 +11,6 @@ public class UrlMapper {
         urlDTO.setCreation(url.getCreation());
         urlDTO.setExpiration(url.getExpiration());
         urlDTO.setNumberOfClicks(url.getNumberOfClicks());
-        urlDTO.setQrCode(url.getQrCode());
         return urlDTO;
     }
 
@@ -21,7 +20,6 @@ public class UrlMapper {
         url.setCreation(urlDTO.getCreation());
         url.setExpiration(urlDTO.getExpiration());
         url.setNumberOfClicks(urlDTO.getNumberOfClicks());
-        url.setQrCode(urlDTO.getQrCode());
         return url;
     }
 }

@@ -14,5 +14,4 @@ public class UrlDTO {
     private Timestamp creation;
     private Timestamp expiration;
     private int numberOfClicks;
-    private String qrCode;
 }
