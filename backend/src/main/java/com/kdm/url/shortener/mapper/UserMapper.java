@@ -8,6 +8,7 @@ import com.kdm.url.shortener.model.User;
 public class UserMapper {
 
     public static UserDTO userToDTO(User user, UserDTO userDTO) {
+        userDTO.setUserId(user.getUserId());
         userDTO.setEmail(user.getEmail());
         userDTO.setName(user.getName());
         userDTO.setPassword(user.getPassword());
@@ -15,6 +16,7 @@ public class UserMapper {
     }
 
     public static User userDTOToUser(UserDTO userDTO, User user) {
+        user.setUserId(userDTO.getUserId());
         user.setEmail(userDTO.getEmail());
         user.setName(userDTO.getName());
         user.setPassword(userDTO.getPassword());
