@@ -3,8 +3,12 @@ package com.kdm.url.shortener.utils;
 import io.jsonwebtoken.*;
 import com.kdm.url.shortener.dto.UserDTO;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.stereotype.Component;
+
+import org.springframework.http.HttpHeaders;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
@@ -57,5 +61,17 @@ public class JwtTokenUtil {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public Long extractUserIdFromRequest(HttpServletRequest request) {
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+            if (validateToken(token))
+                return getUserIdFromToken(token);
+        } else {
+            throw new AuthorizationDeniedException("The token is not valid, try again");
+        }
+        throw new AuthorizationDeniedException("The token is not valid, try again");
     }
 }
