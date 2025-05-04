@@ -15,9 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-//TODO: Add all endpoints here tomorrow(on Saturday)
-// TODO: Later add some comments
-// TODO: Add validation
 @Service
 public class UsersService {
 
@@ -49,15 +46,27 @@ public class UsersService {
         }
     }
 
-    public boolean loginUser(LoginDTO loginDetails) {
+    public Optional<UserDTO> loginUser(LoginDTO loginDetails) {
         String email = loginDetails.getEmail();
         String password = loginDetails.getPassword();
+
         Optional<User> userFromDb = usersRepository.findUserByEmail(email);
+
         if (userFromDb.isPresent()) {
-            String passwordFromDb = userFromDb.get().getPassword();
-            return passwordEncoder.matches(password, passwordFromDb);
+            User user = userFromDb.get();
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                UserDTO dto = new UserDTO();
+                dto.setUserId(user.getUserId());
+                dto.setName(user.getName());
+                dto.setEmail(user.getEmail());
+                return Optional.of(dto);
+            } else {
+                return Optional.empty();
+            }
         } else {
-            throw new UserDoesNotExistException(String.format("A user with the following email %s does not exists. Please first create an account", loginDetails.getEmail()));
+            throw new UserDoesNotExistException(String.format(
+                    "A user with the following email %s does not exist. Please create an account.",
+                    loginDetails.getEmail()));
         }
     }
 

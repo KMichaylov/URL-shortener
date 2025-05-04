@@ -4,6 +4,7 @@ import com.kdm.url.shortener.dto.LoginDTO;
 import com.kdm.url.shortener.dto.RegistrationDTO;
 import com.kdm.url.shortener.dto.UserDTO;
 import com.kdm.url.shortener.service.UsersService;
+import com.kdm.url.shortener.utils.JwtTokenUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,21 +15,29 @@ import java.util.Optional;
 @RequestMapping("/api/users")
 public class UsersRestController {
 
-
     private final UsersService userService;
+    private final JwtTokenUtil jwtTokenUtil;
 
-    public UsersRestController(UsersService userService) {
+    public UsersRestController(UsersService userService, JwtTokenUtil jwtTokenUtil) {
         this.userService = userService;
+        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
-        boolean userIsFound = userService.loginUser(loginDTO);
+        Optional<UserDTO> userOpt = userService.loginUser(loginDTO);
 
-        if (userIsFound) {
-            return ResponseEntity.ok("Login is successful!");
+        if (userOpt.isPresent()) {
+            UserDTO user = userOpt.get();
+            if (user.getUserId() == null) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("User ID is missing.");
+            }
+
+            String token = jwtTokenUtil.generateToken(user.getUserId(), user.getName());
+            return ResponseEntity.ok("Bearer " + token);
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login details are wrong! Try again");
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid login credentials.");
     }
 
     @PostMapping("/registration")
@@ -36,22 +45,9 @@ public class UsersRestController {
         Optional<UserDTO> registeredUser = userService.registerUser(registrationDTO);
 
         if (registeredUser.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CREATED).body("User is registered successfully!");
+            return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully!");
         }
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("A problem occurred, please try again!");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Registration failed.");
     }
-
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<String> deleteUser(@PathVariable long userId) {
-        boolean isDeleted = userService.deleteUserById(userId);
-
-        if (isDeleted) {
-            return ResponseEntity.ok("User deleted successfully.");
-        }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
-    }
-
-
 }
