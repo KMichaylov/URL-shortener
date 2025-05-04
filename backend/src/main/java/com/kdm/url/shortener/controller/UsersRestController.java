@@ -45,9 +45,12 @@ public class UsersRestController {
         Optional<UserDTO> registeredUser = userService.registerUser(registrationDTO);
 
         if (registeredUser.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully!");
+            UserDTO userDTO = registeredUser.get();
+            String token = jwtTokenUtil.generateToken(userDTO.getUserId(), userDTO.getName());
+            return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully! Token: " + token);
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Registration failed.");
     }
+
 }
