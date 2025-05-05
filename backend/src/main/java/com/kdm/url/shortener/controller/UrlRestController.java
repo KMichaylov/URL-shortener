@@ -17,6 +17,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin("http://localhost:5173/")
 @RequestMapping("/api/urls")
 public class UrlRestController {
 
