@@ -10,6 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+    @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -20,9 +21,8 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/urls/**").authenticated()
-                        .anyRequest().permitAll()
-                );
+                        .requestMatchers("/api/users/login", "/api/users/registration").permitAll()
+                        .requestMatchers("/api/urls/**").authenticated());
 
         return http.build();
     }
