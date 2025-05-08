@@ -72,16 +72,20 @@ public class UrlService {
 
     }
 
-    public int displayClickForUrl(String shortUrl) {
-        Optional<Url> urlOptional = urlRepository.findByShortUrl(shortUrl);
+    public int displayClickForUrl(String url) {
+        Optional<Url> urlOptional = urlRepository.findByOriginalUrl(url);
         return urlOptional.map(Url::getNumberOfClicks).orElse(0);
     }
 
-    public void increaseClicksForUrl(String shortUrl) {
-        Optional<Url> urlOptional = urlRepository.findByShortUrl(shortUrl);
+    public void increaseClicksForOriginalUrl(String url) {
+        Optional<Url> urlOptional = urlRepository.findByOriginalUrl(url);
         urlOptional.ifPresent(u -> {
-            u.setNumberOfClicks(u.getNumberOfClicks() + 1);
-            urlRepository.save(u);
+            String originalUrl = u.getOriginalUrl();
+            Optional<Url> originalUrlOptional = urlRepository.findByOriginalUrl(originalUrl);
+            originalUrlOptional.ifPresent(originalUrlEntry -> {
+                originalUrlEntry.setNumberOfClicks(originalUrlEntry.getNumberOfClicks() + 1);
+                urlRepository.save(originalUrlEntry);
+            });
         });
     }
 

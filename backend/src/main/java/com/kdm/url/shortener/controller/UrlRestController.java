@@ -37,9 +37,9 @@ public class UrlRestController {
     }
 
     @GetMapping("/short-url")
-    public ResponseEntity<Void> returnShortUrl(@RequestBody String shortUrl) throws NoSuchAlgorithmException {
-        urlService.increaseClicksForUrl(shortUrl);
-        String originalUrl = urlService.getOriginalUrl(shortUrl);
+    public ResponseEntity<Void> returnShortUrl(@RequestBody String url) throws NoSuchAlgorithmException {
+        urlService.increaseClicksForOriginalUrl(url);
+        String originalUrl = urlService.getOriginalUrl(url);
 
         if (!Objects.equals(originalUrl, "")) {
             return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, originalUrl).build();
@@ -49,14 +49,8 @@ public class UrlRestController {
 
 
     @GetMapping("/clicks")
-    public int returnNumberOfClicks(@RequestBody String url) {
+    public int returnNumberOfClicks(@RequestParam String url) {
         return urlService.displayClickForUrl(url);
     }
-
-//    @GetMapping("/qr-code")
-//    public String generateQrCode(@RequestBody String url) {
-////        TODO: Decide if you would do it in the backend or in the frontend
-//        return "";
-//    }
 
 }
