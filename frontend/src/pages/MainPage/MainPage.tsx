@@ -25,26 +25,28 @@ function MainPage() {
         });
     };
 
-    const shortenUrl = async () => {
-        try {
-            await api.post("/short-url", {originalUrl: url}, {
-                headers: {
-                    "Content-Type": "application/json"
-                }
+    const shortenUrl = () => {
+        api.post("/urls/short-url", {originalUrl: url}, {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+            .then(() => {
+                navigate("/shorted-url", {
+                    state: {
+                        originalUrl: url
+                    }
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+                goToErrorPage(
+                    "You have found a secret place.",
+                    "Something went wrong when shortening the URL. Please check your link and try again!"
+                );
             });
-            navigate("/shorted-url", {
-                state: {
-                    originalUrl: url
-                }
-            });
-        } catch (error) {
-            console.log(error)
-            goToErrorPage(
-                "You have found a secret place.",
-                "Something went wrong when shortening the URL. Please check your link and try again!"
-            );
-        }
     };
+
 
     const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
