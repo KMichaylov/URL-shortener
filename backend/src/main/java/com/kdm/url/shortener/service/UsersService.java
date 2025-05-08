@@ -19,14 +19,12 @@ import java.util.Optional;
 public class UsersService {
 
     private final UsersRepository usersRepository;
-
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UsersService(UsersRepository usersRepository) {
+    public UsersService(UsersRepository usersRepository, BCryptPasswordEncoder passwordEncoder) {
         this.usersRepository = usersRepository;
-        this.passwordEncoder = new SecurityConfig().passwordEncoder();
-
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Optional<UserDTO> registerUser(RegistrationDTO registrationDetails) {
