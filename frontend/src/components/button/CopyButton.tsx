@@ -8,7 +8,6 @@ type CopyButtonProps = {
     className?: string
 }
 
-
 const CopyButton: React.FC<CopyButtonProps> = ({shortenedValue, className}) => {
     const clipboard = useClipboard();
     return (

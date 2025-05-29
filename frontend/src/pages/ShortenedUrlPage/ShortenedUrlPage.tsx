@@ -19,7 +19,7 @@ function ShortenedUrlPage() {
     const originalUrl = location.state?.originalUrl || "Unknown URL";
 
     useEffect(() => {
-        api.get("/clicks")
+        api.get("urls/clicks", {params: {url: originalUrl}})
             .then((res) => setShortenUrl(res.data))
             .catch(() => setHasError(true));
     }, []);
