@@ -1,4 +1,4 @@
-import {Text, Title} from "@mantine/core";
+import {Text, Title, Image} from "@mantine/core";
 import CustomInput from "../../components/input/CustomInput.tsx";
 import CustomButton from "../../components/button/CustomButton.tsx";
 import {useEffect, useState} from "react";
@@ -51,6 +51,14 @@ function ShortenedUrlPage() {
                     <CustomButton placeholder={"Go back"} onClick={handleBackButtonClick}/>
                     <CustomFooter/>
                 </div>
+                {/*TODO: Generate and style the QR code here*/}
+                <Image
+                    radius="md"
+                    height={200}
+                    width="auto"
+                    fit="contain"
+                    src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-9.png"
+                />
             </div>
         </div>
     );
