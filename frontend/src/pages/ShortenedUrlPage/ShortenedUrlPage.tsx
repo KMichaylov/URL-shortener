@@ -45,20 +45,21 @@ function ShortenedUrlPage() {
                     <CustomInput placeholder={"Enter URL"} name={"url-input"} value={shortenUrl}/>
                     <CopyButton shortenedValue={shortenUrl}/>
                 </div>
+                {/*TODO: add functionality*/}
                 <div className={styles["url-info"]}>
                     <Text className={styles["original-text"]}>Original URL: {originalUrl}</Text>
+                    <Image
+                        radius="md"
+                        height={150}
+                        width="auto"
+                        fit="contain"
+                        src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-9.png"
+                    />
                     <CustomButton placeholder={"Total number of clicks"} onClick={handleButtonCountClick}/>
                     <CustomButton placeholder={"Go back"} onClick={handleBackButtonClick}/>
                     <CustomFooter/>
+
                 </div>
-                {/*TODO: Generate and style the QR code here*/}
-                <Image
-                    radius="md"
-                    height={200}
-                    width="auto"
-                    fit="contain"
-                    src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-9.png"
-                />
             </div>
         </div>
     );
