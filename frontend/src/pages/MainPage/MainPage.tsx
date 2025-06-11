@@ -15,51 +15,63 @@ function MainPage() {
         setUrl(event.target.value);
     };
 
-    // TODO: Move this common behaviour into separate file
     const goToErrorPage = (title: string, message: string) => {
         navigate("/error", {
-            state: {
-                title,
-                message
-            }
+            state: {title, message}
         });
     };
 
+    const isValidUrl = (string: string): boolean => {
+        try {
+            new URL(string);
+            return true;
+        } catch {
+            return false;
+        }
+    };
+
     const shortenUrl = () => {
+        const token = localStorage.getItem("jwtToken");
+        if (!token) {
+            goToErrorPage(
+                "Unauthorized",
+                "You must be logged in to shorten URLs. Please login and try again."
+            );
+            return;
+        }
+
         api.post("/urls/short-url", {originalUrl: url}, {
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
             }
         })
             .then(() => {
                 navigate("/shorted-url", {
-                    state: {
-                        originalUrl: url
-                    }
+                    state: {originalUrl: url}
                 });
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
                 goToErrorPage(
                     "You have found a secret place.",
                     "Something went wrong when shortening the URL. Please check your link and try again!"
                 );
-            });
+            })
     };
-
 
     const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (url.trim()) {
-            shortenUrl();
-        } else {
+        if (!url.trim() || !isValidUrl(url)) {
             goToErrorPage(
-                "You have found a secret place.",
-                "You have most probably misspelled the link or provided an empty link. Please go back to the main page and try again!"
+                "Invalid URL",
+                "You have most probably misspelled the link or provided an empty link. Please try again with a valid URL."
             );
+            return;
         }
-    };
 
+        shortenUrl();
+    };
 
     return (
         <MantineProvider>
@@ -73,11 +85,11 @@ function MainPage() {
                     <div className={styles["input-button-row"]}>
                         <div className={styles["input"]}>
                             <CustomInput
-                                placeholder={"Enter your link here"}
-                                name={"url-input"}
+                                placeholder="Enter your link here"
+                                name="url-input"
                                 value={url}
                                 onChange={handleInputChange}
-                                className={"input-field"}
+                                className="input-field"
                             />
                         </div>
                         <CustomButton
