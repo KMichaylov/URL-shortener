@@ -47,7 +47,7 @@ function ShortenedUrlPage() {
                 </div>
                 {/*TODO: add functionality*/}
                 <div className={styles["url-info"]}>
-                    <Text className={styles["original-text"]}>Original URL: {originalUrl}</Text>
+                    <Text className={styles["original-text"]}><b>Original URL:</b> {originalUrl}</Text>
                     <Image
                         radius="md"
                         height={150}
