@@ -1,14 +1,12 @@
 package com.kdm.url.shortener.utils;
 
 import io.jsonwebtoken.*;
-import com.kdm.url.shortener.dto.UserDTO;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.stereotype.Component;
-
-import org.springframework.http.HttpHeaders;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
@@ -19,6 +17,7 @@ public class JwtTokenUtil {
 
     @Value("${jwt.secret}")
     private String jwtSecret;
+
     @Value("${jwt.expirationMs}")
     private long jwtExpirationMs;
 
@@ -27,6 +26,10 @@ public class JwtTokenUtil {
     }
 
     public String generateToken(Long userId, String username) {
+        if (userId == null) {
+            throw new IllegalArgumentException("Cannot generate token: userId is null.");
+        }
+
         return Jwts.builder()
                 .setSubject(username)
                 .claim("userId", userId)
@@ -37,12 +40,19 @@ public class JwtTokenUtil {
     }
 
     public Long getUserIdFromToken(String token) {
-        return ((Number) Jwts.parserBuilder()
+        Claims claims = Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)
-                .getBody()
-                .get("userId")).longValue();
+                .getBody();
+
+        Object userIdObj = claims.get("userId");
+
+        if (userIdObj instanceof Number) {
+            return ((Number) userIdObj).longValue();
+        } else {
+            throw new JwtException("JWT does not contain a valid 'userId' claim.");
+        }
     }
 
     public String getUsernameFromToken(String token) {
@@ -69,8 +79,6 @@ public class JwtTokenUtil {
             token = token.substring(7);
             if (validateToken(token))
                 return getUserIdFromToken(token);
-        } else {
-            throw new AuthorizationDeniedException("The token is not valid, try again");
         }
         throw new AuthorizationDeniedException("The token is not valid, try again");
     }
