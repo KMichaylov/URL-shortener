@@ -1,6 +1,6 @@
 import styles from './ForgottenPasswordPage.module.css'
 import {useNavigate} from "react-router";
-import CustomInput from "../../components/search/CustomInput.tsx";
+import CustomInput from "../../components/input/CustomInput.tsx";
 import React, {useState} from "react";
 import CustomButton from "../../components/button/CustomButton.tsx";
 import {Container, Title} from "@mantine/core";
