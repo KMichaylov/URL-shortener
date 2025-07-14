@@ -13,7 +13,6 @@ user_id INT,
 creation TIMESTAMP,
 expiration TIMESTAMP,
 number_of_clicks INT,
-qr_code BYTEA,
 PRIMARY KEY (short_url),
 FOREIGN KEY (user_id) REFERENCES Users(user_ID)
     );
