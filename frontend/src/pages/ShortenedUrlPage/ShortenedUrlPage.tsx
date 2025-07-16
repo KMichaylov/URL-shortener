@@ -17,16 +17,16 @@ function ShortenedUrlPage() {
     const location = useLocation();
 
     const originalUrl = location.state?.originalUrl || "Unknown URL";
-
+    const shortenedUrl = location.state?.shortenUrl || "No value";
     useEffect(() => {
         api.get("urls/clicks", {params: {url: originalUrl}})
-            .then((res) => setShortenUrl(res.data))
+            .then(() => setShortenUrl(shortenedUrl))
             .catch(() => setHasError(true));
     }, []);
 
 
     const handleButtonCountClick = () => {
-        navigate("/shorted-url/clicks", {state: {shortUrl: shortenUrl}})
+        navigate("/shorted-url/clicks", {state: {shortUrl: shortenedUrl}})
     }
 
     const handleBackButtonClick = () => {
@@ -42,8 +42,8 @@ function ShortenedUrlPage() {
             </div>
             <div className={styles["wrapper-urlbox"]}>
                 <div className={styles["input-button-row"]}>
-                    <CustomInput placeholder={"Enter URL"} name={"url-input"} value={shortenUrl}/>
-                    <CopyButton shortenedValue={shortenUrl}/>
+                    <CustomInput placeholder={"Enter URL"} name={"url-input"} value={shortenedUrl}/>
+                    <CopyButton shortenedValue={shortenedUrl}/>
                 </div>
                 {/*TODO: add functionality*/}
                 <div className={styles["url-info"]}>

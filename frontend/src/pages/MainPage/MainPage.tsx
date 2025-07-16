@@ -46,9 +46,9 @@ function MainPage() {
                 Authorization: `Bearer ${token}`,
             }
         })
-            .then(() => {
+            .then((res) => {
                 navigate("/shorted-url", {
-                    state: {originalUrl: url}
+                    state: {originalUrl: url, shortenUrl: res.data}
                 });
             })
             .catch((error) => {
