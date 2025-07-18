@@ -8,10 +8,10 @@ import CustomFooter from "../../components/footer/CustomFooter.tsx";
 import styles from "./ShortenedUrlPage.module.css"
 import api from "../../api/apiConfiguration.ts";
 import ErrorPage from "../ErrorPage/ErrorPage.tsx";
+import QRCode from "react-qr-code";
 
 function ShortenedUrlPage() {
 
-    const [shortenUrl, setShortenUrl] = useState("")
     const [hasError, setHasError] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
@@ -20,7 +20,6 @@ function ShortenedUrlPage() {
     const shortenedUrl = location.state?.shortenUrl || "No value";
     useEffect(() => {
         api.get("urls/clicks", {params: {url: originalUrl}})
-            .then(() => setShortenUrl(shortenedUrl))
             .catch(() => setHasError(true));
     }, []);
 
@@ -45,16 +44,12 @@ function ShortenedUrlPage() {
                     <CustomInput placeholder={"Enter URL"} name={"url-input"} value={shortenedUrl}/>
                     <CopyButton shortenedValue={shortenedUrl}/>
                 </div>
-                {/*TODO: add functionality*/}
                 <div className={styles["url-info"]}>
                     <Text className={styles["original-text"]}><b>Original URL:</b> {originalUrl}</Text>
-                    <Image
-                        radius="md"
-                        height={150}
-                        width="auto"
-                        fit="contain"
-                        src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-9.png"
-                    />
+                    <QRCode size={150}
+                            style={{height: 150, maxWidth: "100%", width: "auto"}}
+                            value={originalUrl}
+                            viewBox={`0 0 256 256`}/>
                     <CustomButton placeholder={"Total number of clicks"} onClick={handleButtonCountClick}/>
                     <CustomButton placeholder={"Go back"} onClick={handleBackButtonClick}/>
                     <CustomFooter/>
