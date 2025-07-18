@@ -15,7 +15,7 @@ function AnalyticsPage() {
     const shortUrl = locator.state?.shortUrl || "Unknown URL";
 
     useEffect(() => {
-        api.get("/clicks")
+        api.get("/urls/clicks", {params: {url: shortUrl}})
             .then((res) => setNumberOfClicks(res.data))
             .catch(() => setHasError(true));
     }, [])
