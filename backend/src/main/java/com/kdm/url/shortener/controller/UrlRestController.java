@@ -36,18 +36,6 @@ public class UrlRestController {
         return urlService.shortenUrl(url, userId);
     }
 
-    @GetMapping("/short-url")
-    public ResponseEntity<Void> returnShortUrl(@RequestBody String url) throws NoSuchAlgorithmException {
-        urlService.increaseClicksForOriginalUrl(url);
-        String originalUrl = urlService.getOriginalUrl(url);
-
-        if (!Objects.equals(originalUrl, "")) {
-            return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, originalUrl).build();
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    }
-
-
     @GetMapping("/clicks")
     public int returnNumberOfClicks(@RequestParam String url) {
         return urlService.displayClickForUrl(url);
