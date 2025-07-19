@@ -13,6 +13,7 @@ import java.security.NoSuchAlgorithmException;
 @RestController
 public class RedirectController {
     private final UrlService urlService;
+    private final String ADDRESS_CONSTANT = "http://localhost:5173/r/";
 
     public RedirectController(UrlService urlService) {
         this.urlService = urlService;
@@ -20,8 +21,9 @@ public class RedirectController {
 
     @GetMapping("/r/{shortUrl}")
     public ResponseEntity<Void> redirectToUrl(@PathVariable String shortUrl) throws NoSuchAlgorithmException {
-        urlService.increaseClicksForOriginalUrl(shortUrl);
-        String originalUrl = urlService.getOriginalUrl("http://localhost:5173/r/" + shortUrl);
+        String fullUrl = ADDRESS_CONSTANT + shortUrl;
+        urlService.increaseClicksForOriginalUrl(fullUrl);
+        String originalUrl = urlService.getOriginalUrl(fullUrl);
         System.out.println(originalUrl);
 
         if (originalUrl != null && !originalUrl.isBlank()) {
