@@ -30,7 +30,7 @@ public class UrlService {
     }
 
     public String shortenUrl(String url, long userId) throws NoSuchAlgorithmException {
-        StringBuilder baseUrl = new StringBuilder("https://shorturl/");
+        StringBuilder baseUrl = new StringBuilder("http://localhost:5371/r/");
         StringBuilder shortCode = generateShortCode();
         String shortUrl = baseUrl.append(shortCode).toString();
 
