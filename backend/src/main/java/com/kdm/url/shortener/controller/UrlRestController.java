@@ -2,6 +2,7 @@ package com.kdm.url.shortener.controller;
 
 import com.kdm.url.shortener.dto.LoginDTO;
 import com.kdm.url.shortener.dto.RegistrationDTO;
+import com.kdm.url.shortener.dto.UrlRequest;
 import com.kdm.url.shortener.exception.UserDoesNotExistException;
 import com.kdm.url.shortener.service.UrlService;
 import com.kdm.url.shortener.utils.JwtTokenUtil;
@@ -29,10 +30,11 @@ public class UrlRestController {
     }
 
     @PostMapping("/short-url")
-    public String shortenUrl(@RequestBody String url, HttpServletRequest request) throws NoSuchAlgorithmException {
+    public String shortenUrl(@RequestBody UrlRequest urlRequest, HttpServletRequest request) throws NoSuchAlgorithmException {
         Long userId = jwtTokenUtil.extractUserIdFromRequest(request);
         if (userId == null)
             throw new UserDoesNotExistException("The user does not exist");
+        String url = urlRequest.getOriginalUrl();
         return urlService.shortenUrl(url, userId);
     }
 

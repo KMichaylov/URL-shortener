@@ -10,7 +10,6 @@ import {useNavigate} from "react-router";
 function MainPage() {
     const [url, setUrl] = useState("");
     const navigate = useNavigate();
-
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUrl(event.target.value);
     };

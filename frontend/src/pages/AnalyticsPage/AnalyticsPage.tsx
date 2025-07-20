@@ -16,7 +16,10 @@ function AnalyticsPage() {
 
     useEffect(() => {
         api.get("/urls/clicks", {params: {url: shortUrl}})
-            .then((res) => setNumberOfClicks(res.data))
+            .then((res) => {
+                console.log(shortUrl)
+                setNumberOfClicks(res.data)
+            })
             .catch(() => setHasError(true));
     }, [])
 

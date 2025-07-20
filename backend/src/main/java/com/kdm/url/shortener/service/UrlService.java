@@ -30,7 +30,7 @@ public class UrlService {
     }
 
     public String shortenUrl(String url, long userId) throws NoSuchAlgorithmException {
-        StringBuilder baseUrl = new StringBuilder("http://localhost:5371/r/");
+        StringBuilder baseUrl = new StringBuilder("http://localhost:5173/r/");
         StringBuilder shortCode = generateShortCode();
         String shortUrl = baseUrl.append(shortCode).toString();
 
@@ -73,19 +73,16 @@ public class UrlService {
     }
 
     public int displayClickForUrl(String url) {
-        Optional<Url> urlOptional = urlRepository.findByOriginalUrl(url);
+        Optional<Url> urlOptional = urlRepository.findByShortUrl(url);
         return urlOptional.map(Url::getNumberOfClicks).orElse(0);
     }
 
+    // TODO fix this tomorrow
     public void increaseClicksForOriginalUrl(String url) {
-        Optional<Url> urlOptional = urlRepository.findByOriginalUrl(url);
-        urlOptional.ifPresent(u -> {
-            String originalUrl = u.getOriginalUrl();
-            Optional<Url> originalUrlOptional = urlRepository.findByOriginalUrl(originalUrl);
-            originalUrlOptional.ifPresent(originalUrlEntry -> {
-                originalUrlEntry.setNumberOfClicks(originalUrlEntry.getNumberOfClicks() + 1);
-                urlRepository.save(originalUrlEntry);
-            });
+        Optional<Url> shortenedUrlOptional = urlRepository.findByShortUrl(url);
+        shortenedUrlOptional.ifPresent(shortenUrlEntry -> {
+            shortenUrlEntry.setNumberOfClicks(shortenUrlEntry.getNumberOfClicks() + 1);
+            urlRepository.save(shortenUrlEntry);
         });
     }
 
