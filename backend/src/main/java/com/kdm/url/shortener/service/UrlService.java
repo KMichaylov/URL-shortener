@@ -77,7 +77,7 @@ public class UrlService {
         return urlOptional.map(Url::getNumberOfClicks).orElse(0);
     }
 
-    // TODO fix this tomorrow
+
     public void increaseClicksForOriginalUrl(String url) {
         Optional<Url> shortenedUrlOptional = urlRepository.findByShortUrl(url);
         shortenedUrlOptional.ifPresent(shortenUrlEntry -> {
