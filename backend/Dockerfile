@@ -2,11 +2,8 @@ FROM openjdk:21-jdk-alpine
 
 WORKDIR /app
 
-COPY target/url-shortener.jar /app/url-shortener.jar
+COPY target/url-shortener.jar /app/app.jar
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "/app/url-shortener.jar"]
-
-ENTRYPOINT ["java", "-jar", "/app.jar"]
-
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
